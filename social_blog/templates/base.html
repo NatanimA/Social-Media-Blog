@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+{% load static %}
+{% load bootstrap3 %}
+<html>
+    <head>
+        <title>Star Social</title> 
+        <link rel="stylesheet" href="{% static 'css/master.css' %}">
+        {% comment %} <link rel="stylesheet"  href="{% static 'social_blog/css/style.css' %}" {% endcomment %}
+        {% comment %} Bootstrap {% endcomment %}
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+
+    </head>
+    <body>
+        <article id="city">
+        <section class="sky">
+        <nav class="navbar mynav" role='navigation' id='navbar'>
+            <div class="container">
+                <a class="navbar-brand mynav" href="{% url 'home' %}">Star Social</a>
+                <ul class='nav navbar-nav navbar-right'>
+                    {% if user.is_authenticated %}
+                        <li><a href="{% url 'posts:create' %}">Post</a></li>
+                        <li><a href="{% url 'groups:all' %}">Groups</a></li>
+                        <li><a href="{% url 'groups:create' %}">Create Group</a></li>
+                        <li><a href="{% url 'posts:for_user' username=user.username %}">Welcome: {{user.username}}</a></li>
+                        <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
+                        {% else %}
+                        <li><a href="{% url 'groups:all' %}">Groups</a></li>
+                        <li><a href="{% url 'accounts:login' %}">Login</a></li>
+                        <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+                    
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+        
+        <div class="container mycontent">
+
+            {% block content %}
+       
+              {% endblock content %}
+
+        </div>
+        </section>
+       </article>
+        
+    </body>
+</html>
